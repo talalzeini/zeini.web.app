@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tree</title>
+    <!-- LINKS -->
+    <!-- LINKS -->
+    <!-- LINKS -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="scream.png" sizes="144×144" type="image/png" />
+    <!-- SCRIPTS -->
+    <!-- SCRIPTS -->
+    <!-- SCRIPTS -->
+    <script defer src="/__/firebase/8.3.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-functions.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-remote-config.js"></script>
+    <script defer src="/__/firebase/8.3.0/firebase-performance.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tree</title>
-  <!-- LINKS -->
-  <!-- LINKS -->
-  <!-- LINKS -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="scream.png" sizes="144×144" type="image/png" />
-  <!-- SCRIPTS -->
-  <!-- SCRIPTS -->
-  <!-- SCRIPTS -->
-  <script defer src="/__/firebase/8.3.0/firebase-app.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-auth.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-database.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-functions.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-messaging.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-storage.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-analytics.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-remote-config.js"></script>
-  <script defer src="/__/firebase/8.3.0/firebase-performance.js"></script>
-  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
-</head>
-
-<body>
-  <section>
-    <div class='container'>
-      <img class='profile' src="profile.png" alt="">
-      <div id='links'>
-       
+  <body>
+    <section>
+      <div class="container">
+        <img class="profile" src="profile.png" alt="" />
+        <div id="links"></div>
       </div>
-    </div>
-  </section>
-</body>
-<script>
-  var firebaseConfig = {
-    apiKey: "AIzaSyDsifhZXve6Awe51vWNnSJVbuhnepPTYrc",
-    authDomain: "tzeini.firebaseapp.com",
-    databaseURL: "https://tzeini-default-rtdb.firebaseio.com",
-    projectId: "tzeini",
-    storageBucket: "tzeini.appspot.com",
-    messagingSenderId: "696325510461",
-    appId: "1:696325510461:web:71a20071e1fc5812c06154"
-  };
-  firebase.initializeApp(firebaseConfig);
+    </section>
+  </body>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDsifhZXve6Awe51vWNnSJVbuhnepPTYrc",
+      authDomain: "tzeini.firebaseapp.com",
+      databaseURL: "https://tzeini-default-rtdb.firebaseio.com",
+      projectId: "tzeini",
+      storageBucket: "tzeini.appspot.com",
+      messagingSenderId: "696325510461",
+      appId: "1:696325510461:web:71a20071e1fc5812c06154",
+    };
+    firebase.initializeApp(firebaseConfig);
 
-  db = firebase.database()
-  var path = db.ref("Links");
-  path.on('value', (snapshot) => {
-    const data = snapshot.val()
-    const keys = Object.keys(data)
-    var length = keys.length
-    for( let i = 0; i < length; i++ ){
-      var BtnString = "<button id = '" + (keys[i]) + "' onclick='goToLink(this.id)' >" + (keys[i]).substring(1) + " </>"
-      document.getElementById('links').innerHTML += BtnString
-    }
-  });
-  function goToLink(btnId){
-      var path = db.ref("Links/" + btnId);
-      path.on('value', (snapshot) => {
-      const link = snapshot.val()["link"]
-      window.location = link
+    db = firebase.database();
+    var path = db.ref("Links");
+    path.on("value", (snapshot) => {
+      const data = snapshot.val();
+      const keys = Object.keys(data);
+      var length = keys.length;
+      for (let i = 0; i < length; i++) {
+        var BtnString =
+          "<button id = '" +
+          keys[i] +
+          "' onclick='goToLink(this.id)' >" +
+          keys[i].substring(1) +
+          " </>";
+        document.getElementById("links").innerHTML += BtnString;
+      }
     });
-  }
-</script>
-
+    function goToLink(btnId) {
+      var path = db.ref("Links/" + btnId);
+      path.on("value", (snapshot) => {
+        const link = snapshot.val()["link"];
+        window.location = link;
+      });
+    }
+  </script>
 </html>
